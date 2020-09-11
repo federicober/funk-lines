@@ -7,6 +7,11 @@ repos:
         language: system
         types: [python]
         require_serial: true
+      - id: check-ast
+        name: Check valid Python file
+        entry: check-ast
+        types: [python]
+        language: system
       - id: check-added-large-files
         name: Check for added large files
         entry: check-added-large-files
