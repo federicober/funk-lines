@@ -1,12 +1,8 @@
-"""Command-line interface."""
-import click
+"""Entrypoint of the python package."""
+from .cli import app
 
+__all__ = ["app"]
 
-@click.command()
-@click.version_option()
-def main() -> None:
-    """Funk Lines."""
-
-
+# Execute the CLI app when calling the module via python -m funk-lines
 if __name__ == "__main__":
-    main(prog_name="funk-lines")  # pragma: no cover
+    app()
