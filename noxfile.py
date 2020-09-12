@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Nox sessions."""
 import hashlib
 import shutil
