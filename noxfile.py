@@ -58,9 +58,7 @@ class Poetry:
         Returns:
             The basename of the wheel built by Poetry.
         """
-        output = self.session.run(
-            "poetry", "build", *args, external=True, silent=True, stderr=None
-        )
+        output = self.session.run("poetry", "build", *args, external=True, silent=True, stderr=None)
         assert isinstance(output, str)  # noqa: S101
         return output.split()[-1]
 
@@ -152,9 +150,7 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
 
         text = hook.read_text()
         bindir = repr(session.bin)[1:-1]  # strip quotes
-        if not (
-            Path("A") == Path("a") and bindir.lower() in text.lower() or bindir in text
-        ):
+        if not (Path("A") == Path("a") and bindir.lower() in text.lower() or bindir in text):
             continue
 
         lines = text.splitlines()
