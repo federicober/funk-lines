@@ -19,7 +19,7 @@ Changelog = "https://github.com/federicober/funk-lines/releases"
 
 [tool.poetry.dependencies]
 python = "^3.6.1"
-click = "^7.0"
+typer = "^0.3.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.0.1"
@@ -43,7 +43,7 @@ reorder-python-imports = "^2.3.5"
 pre-commit-hooks = "^3.2.0"
 
 [tool.poetry.scripts]
-funk-lines = "funk_lines.__main__:main"
+funk-lines = "funk_lines.__main__:app"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
@@ -55,7 +55,27 @@ source = ["funk_lines"]
 [tool.coverage.report]
 show_missing = true
 fail_under = 100
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "if __name__ == .__main__.:"]
 
+[tool.black]
+line-length = 100
+
+exclude = '''
+(
+  /(
+      \.eggs
+    | \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+)
+'''
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
