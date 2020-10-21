@@ -55,6 +55,7 @@ source = ["funk_lines"]
 [tool.coverage.report]
 show_missing = true
 fail_under = 100
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "if __name__ == .__main__.:"]
 
 [tool.black]
 line-length = 100
