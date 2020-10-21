@@ -6,16 +6,13 @@ updates:
       interval: daily
   - package-ecosystem: pip
     directory: "/.github/workflows"
-    target_branch: develop
     schedule:
       interval: daily
   - package-ecosystem: pip
-    target_branch: develop
     directory: "/docs"
     schedule:
       interval: daily
   - package-ecosystem: pip
-    target_branch: develop
     directory: "/"
     schedule:
       interval: daily
