@@ -42,13 +42,13 @@ jobs:
 
       - name: Run Tox
         run: tox
-
-      - name: Upload documentation
-        if: matrix.session == 'docs-build'
-        uses: actions/upload-artifact@v2
-        with:
-          name: docs
-          path: docs/_build
+#      - name: Upload documentation
+#        if: matrix.session == 'docs-build'
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: docs
+#          path: docs/_build
+#
 #      - name: Create coverage report
 #        run:
 #          tox --force-color --session=coverage -- xml
