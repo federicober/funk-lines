@@ -2,12 +2,12 @@
 import ast
 import pathlib
 from os import PathLike
-from typing import TYPE_CHECKING
-from typing import Union
+from typing import TYPE_CHECKING, Union
+
+from funk_lines.core import results
 
 from ..ast_processors import base as _base_processor
 from ..ast_processors import function_processor
-from funk_lines.core import results
 
 if TYPE_CHECKING:
     PathLikeStr = PathLike[str]

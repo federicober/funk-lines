@@ -3,27 +3,19 @@ import ast
 import collections
 import functools
 import itertools
-from typing import Any
-from typing import Iterable
-from typing import Iterator
-from typing import List
-from typing import Tuple
-from typing import TYPE_CHECKING
-from typing import TypeVar
-from typing import Union
+from typing import TYPE_CHECKING, Any, Iterable, Iterator, List, Tuple, TypeVar, Union
 
-from .base import AstDefinitions
-from .base import StmtInfo
+from .base import AstDefinitions, StmtInfo
 
 if TYPE_CHECKING:
     AstInfoSequence = collections.abc.Collection[StmtInfo]
 else:
     AstInfoSequence = collections.abc.Collection
 
-X = TypeVar("X")
+T = TypeVar("T")
 
 
-def _pairwise(iterable: Iterable[X], ending: X) -> Iterator[Tuple[X, X]]:
+def _pairwise(iterable: Iterable[T], ending: T) -> Iterator[Tuple[T, T]]:
     """Iterates through an object pairwise.
 
     Examples:
@@ -36,9 +28,9 @@ def _pairwise(iterable: Iterable[X], ending: X) -> Iterator[Tuple[X, X]]:
     Returns:
         Iterator of tuples of pairs
     """
-    a, b = itertools.tee(iterable)
-    next(b, None)
-    return itertools.zip_longest(a, b, fillvalue=ending)
+    iterator_1, iterator_2 = itertools.tee(iterable)
+    next(iterator_2, None)
+    return itertools.zip_longest(iterator_1, iterator_2, fillvalue=ending)
 
 
 def is_definition(node: Any) -> bool:
@@ -54,7 +46,8 @@ def is_definition(node: Any) -> bool:
 
 
 def get_definitions(
-    current_node: Union[ast.stmt, ast.Module], next_node: ast.stmt,
+    current_node: Union[ast.stmt, ast.Module],
+    next_node: ast.stmt,
 ) -> "List[StmtInfo]":
     """Constructs a InfoSequence object from an AST node.
 

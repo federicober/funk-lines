@@ -2,7 +2,6 @@
 import logging
 import os
 
-
 if os.getenv("FUNK_LINES_DEBUG"):
     logger: logging.Logger = logging.getLogger("funk_lines")
     logger.setLevel(logging.DEBUG)

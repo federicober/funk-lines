@@ -17,15 +17,17 @@ class EOF(ast.stmt):
         Args:
             lineno: line number
         """
-        super(EOF, self).__init__()
+        super().__init__()
         self.lineno: int = lineno
 
 
 class StmtInfo:
-    """Class for extracting important information on functions and classes and other ast statements."""
+    """Class for extracting important information on functions and classes."""
 
     def __init__(
-        self, current_node: ast.stmt, next_node: ast.stmt,
+        self,
+        current_node: ast.stmt,
+        next_node: ast.stmt,
     ):
         """Constructor for Definition info.
 

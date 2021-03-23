@@ -1,8 +1,6 @@
 """File for the results class."""
 import statistics
-from typing import List
-from typing import Optional
-from typing import Sequence
+from typing import List, Optional, Sequence
 
 from .ast_processors import StmtInfo
 
