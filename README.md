@@ -9,7 +9,7 @@
 
 ## Features
 
-- TODO
+Count the average lines of code per function/class in your Python code.
 
 ## Installation
 
