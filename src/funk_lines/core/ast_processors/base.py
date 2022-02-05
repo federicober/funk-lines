@@ -1,7 +1,6 @@
 """Base classes and objects for processing AST trees."""
 import ast
 import logging
-from typing import Optional
 
 logger: logging.Logger = logging.getLogger(__name__)
 
@@ -36,7 +35,7 @@ class StmtInfo:
             next_node: AST node of the following object
         """
         self._current_node: ast.stmt = current_node
-        self._next_node: Optional[ast.stmt] = next_node
+        self._next_node: ast.stmt | None = next_node
 
         self._line_start: int = self._current_node.lineno
 

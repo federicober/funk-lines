@@ -1,21 +1,15 @@
 """Processes for functions and classes in AST trees."""
 import ast
-import collections
 import functools
 import itertools
-from typing import TYPE_CHECKING, Any, Iterable, Iterator, List, Tuple, TypeVar, Union
+from typing import Any, Iterable, Iterator, TypeVar
 
 from .base import AstDefinitions, StmtInfo
-
-if TYPE_CHECKING:
-    AstInfoSequence = collections.abc.Collection[StmtInfo]
-else:
-    AstInfoSequence = collections.abc.Collection
 
 T = TypeVar("T")
 
 
-def _pairwise(iterable: Iterable[T], ending: T) -> Iterator[Tuple[T, T]]:
+def _pairwise(iterable: Iterable[T], ending: T) -> Iterator[tuple[T, T]]:
     """Iterates through an object pairwise.
 
     Examples:
@@ -46,9 +40,9 @@ def is_definition(node: Any) -> bool:
 
 
 def get_definitions(
-    current_node: Union[ast.stmt, ast.Module],
+    current_node: ast.stmt | ast.Module,
     next_node: ast.stmt,
-) -> "List[StmtInfo]":
+) -> "list[StmtInfo]":
     """Constructs a InfoSequence object from an AST node.
 
     Args:
@@ -58,13 +52,13 @@ def get_definitions(
     Returns:
         List of StmtInfo
     """
-    current_node_info: "List[StmtInfo]" = []
+    current_node_info: "list[StmtInfo]" = []
 
     if is_definition(current_node) and not isinstance(current_node, ast.Module):
         current_node_info = [StmtInfo(current_node, next_node=next_node)]
 
     if hasattr(current_node, "body"):
-        _body: List[ast.stmt] = current_node.body  # type: ignore[union-attr]
+        _body: list[ast.stmt] = current_node.body  # type: ignore[union-attr]
         return current_node_info + functools.reduce(
             list.__add__, itertools.starmap(get_definitions, _pairwise(_body, ending=next_node))
         )
