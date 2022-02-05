@@ -1,18 +1,19 @@
 """Class for analysing a single python file."""
 import ast
+import os
 import pathlib
-from os import PathLike
 
 from funk_lines.core import results
 
-from ..ast_processors import base as _base_processor
+from ..ast_processors import base as base_processor
 from ..ast_processors import function_processor
+from . import base_analyser
 
 
-class FileAnalyser:
+class FileAnalyser(base_analyser.BaseAnalyser):
     """Analyser for a single Python file."""
 
-    def __init__(self, file_path: str | PathLike[str]):
+    def __init__(self, file_path: str | os.PathLike[str]):
         """Constructor for FileAnalyser.
 
         Args:
@@ -23,16 +24,19 @@ class FileAnalyser:
             "\n"
         )  # remove new lines because not relevant
 
-    def analyse(self) -> results.Results:
+    def analyse(self) -> results.Result:
         """Extracts the results from the analysed object.
 
         Returns:
             Results object
         """
         base_ast_node: "ast.Module" = ast.parse(self._contents)
-        eof = _base_processor.EOF(self.count_lines() + 1)
+        eof = base_processor.EOF(self.count_lines() + 1)
         definitions = function_processor.get_definitions(base_ast_node, next_node=eof)
-        return results.Results(total_lines=self.count_lines(), definitions=definitions)
+        result = results.Result(
+            total_lines=self.count_lines(), definitions=definitions, name=str(self._file_path)
+        )
+        return result
 
     def count_lines(self) -> int:
         """Counts the total number of lines.
