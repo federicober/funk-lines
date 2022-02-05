@@ -2,7 +2,7 @@
 import abc
 import operator
 import statistics
-from typing import List, Optional, Sequence
+from typing import Sequence
 
 from .ast_processors import StmtInfo
 
@@ -40,12 +40,12 @@ class BaseResult(abc.ABC):
         return 0
 
     @property
-    def definitions(self) -> List[StmtInfo]:
+    def definitions(self) -> list[StmtInfo]:
         """List of statement info objects for all functions and classes."""
         return []
 
     @property
-    def lines_per_function(self) -> Optional[float]:
+    def lines_per_function(self) -> float | None:
         """Mean number of lines per definition."""
         return None
 
@@ -86,7 +86,7 @@ class Result(BaseResult):
             name: details the origin of the result
         """
         self._total_lines: int = total_lines
-        self._definitions: List[StmtInfo] = list(definitions)
+        self._definitions: list[StmtInfo] = list(definitions)
         super().__init__(name=name, children=children)
 
     @property
@@ -100,12 +100,12 @@ class Result(BaseResult):
         return len(self._definitions)
 
     @property
-    def definitions(self) -> List[StmtInfo]:
+    def definitions(self) -> list[StmtInfo]:
         """List of statement info objects for all functions and classes."""
         return self._definitions.copy()
 
     @property
-    def lines_per_function(self) -> Optional[float]:
+    def lines_per_function(self) -> float | None:
         """Mean number of lines per definition."""
         if self._definitions:
             return statistics.mean(def_.n_lines for def_ in self._definitions)

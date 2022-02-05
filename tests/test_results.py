@@ -1,5 +1,4 @@
 """Tests for the Result class."""
-from typing import List
 from unittest import mock
 
 from funk_lines.core import results
@@ -9,8 +8,8 @@ from funk_lines.core.ast_processors import StmtInfo
 def test_results_add() -> None:
     """Test the results add method."""
 
-    def _mock_definitions(*args: int) -> List["StmtInfo"]:
-        result: List[StmtInfo] = []
+    def _mock_definitions(*args: int) -> list["StmtInfo"]:
+        result: list[StmtInfo] = []
         for i in args:
             mock_ = mock.NonCallableMock()  # type: StmtInfo
             mock_.n_lines = i  # type: ignore[misc]
