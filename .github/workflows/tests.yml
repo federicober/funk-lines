@@ -1,0 +1,53 @@
+name: Tests
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+
+jobs:
+  tests:
+    name: Test ${{ matrix.python-version }} / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { python-version: 3.10, os: windows-latest }
+          - { python-version: 3.10, os: macos-latest }
+          - { python-version: 3.10, os: ubuntu-latest }
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2.3.2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2.1.2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install tooling
+        run: |
+          pip install --upgrade pip
+          pip install --upgrade poetry
+          pip --version
+          poetry --version
+
+      - name: Install local package
+        run: |
+          virtualenv venv
+          poetry install --dev
+
+      - name: Run Pytest
+        run: |
+          poetry run pytest
+
+      - name: Create coverage report
+        if: always()
+        run: |
+          coverage xml
+
+      - name: Upload coverage report
+        if: always()
+        uses: codecov/codecov-action@v1.0.12
