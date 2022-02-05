@@ -1,0 +1,59 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request_target:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+      - name: Cache Dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/pypoetry
+            ~/.cache/pip
+            ~/.cache/pre-commit
+            ${{ env.pythonLocation }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-3.10-${{ hashFiles('pyproject.toml') }}-tests
+      - name: Install tooling
+        run: |
+          pip3 install --upgrade poetry pre-commit pip
+          pip --version
+          poetry --version
+          pre-commit --version
+          poetry install
+          pre-commit install
+      - name: Run Pre Commit Hooks
+        run: |
+          pre-commit run --all
+      - name: Run MyPy
+        run: |
+          poetry run mypy .
+      - name: Run Pylint
+        run: |
+          poetry run pylint src
+      - name: Run Pytest
+        run: |
+          poetry run pytest
+      - name: Create coverage report
+        run: |
+          poetry run coverage xml
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v2
