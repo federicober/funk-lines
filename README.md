@@ -1,8 +1,8 @@
 # Funk Lines
 
-[//]: # "[![PyPI](https://img.shields.io/pypi/v/funk-lines.svg)](https://pypi.org/project/funk-lines)"
-[//]: # "[![Python Version](https://img.shields.io/pypi/pyversions/funk-lines)](https://pypi.org/project/funk-lines)"
-[//]: # "[![License](https://img.shields.io/pypi/l/funk-lines)](https://opensource.org/licenses/MIT)"
+[![PyPI](https://img.shields.io/pypi/v/funk-lines.svg)](https://pypi.org/project/funk-lines)
+[![Python Version](https://img.shields.io/pypi/pyversions/funk-lines)](https://pypi.org/project/funk-lines)
+[![License](https://img.shields.io/pypi/l/funk-lines)](https://opensource.org/licenses/MIT)
 
 [![Build](https://github.com/federicober/funk-lines/actions/workflows/build.yml/badge.svg)](https://github.com/federicober/funk-lines/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/federicober/funk-lines/branch/main/graph/badge.svg?token=3I0fVVBTOG)](https://codecov.io/gh/federicober/funk-lines)
