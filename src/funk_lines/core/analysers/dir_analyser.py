@@ -18,8 +18,9 @@ class DirectoryAnalyser(base_analyser.BaseAnalyser):
         self._dir_path: pathlib.Path = pathlib.Path(str(dir_path))
         if not self._dir_path.is_dir():
             raise NotADirectoryError(dir_path)
+        super().__init__(self._dir_path)
 
-    def analyse(self) -> results.BaseResult:
+    def _analyse(self) -> results.BaseResult:
         """Extracts the results from the analysed object.
 
         Returns:

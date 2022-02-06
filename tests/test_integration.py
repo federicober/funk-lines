@@ -51,12 +51,22 @@ a = "Hello world"
 print(a)
 """
 
+custom_exc_with_docstring = """
+class Exc(Exception):
+    \"\"\"Hello\"\"\"
+"""
+
+empty_file = """
+"""
+
 dummy_files = [
     ("hello_world_func_file", hello_world_func_file, 4, 1, 3),
     ("hello_world_simple_class", hello_world_simple_class, 5, 2, 3.5),
     ("hello_world_class", hello_world_class, 10, 3, 5),
     ("hello_closure", hello_closure, 7, 2, 4.5),
     ("no_funcs_file", no_funcs_file, 3, 0, None),
+    ("custom_exc_with_docstring", custom_exc_with_docstring, 2, 1, 2),
+    ("empty_file", empty_file, 1, 0, None),
 ]
 
 
