@@ -5,6 +5,7 @@ import typing
 import rich.console
 import rich.table
 import typer
+from rich import box
 
 if typing.TYPE_CHECKING:
     from funk_lines.core.results import BaseResult
@@ -55,6 +56,10 @@ def callback(
         rich.table.Column("Lines", justify="right", style="magenta"),
         rich.table.Column("Functions", justify="right", style="magenta"),
         rich.table.Column("Lines/Func", justify="right", style="green"),
+        show_edge=False,
+        show_header=True,
+        expand=False,
+        box=box.SIMPLE,
     )
 
     __add_result_to_table(table, result)
