@@ -34,8 +34,8 @@ jobs:
           twine --version
       - name: Bump pre-release version
         run: |
-          version=$(poetry version | awk '{ print $2 }') &&
-          poetry version $version.dev.$(date +%s)
+          version=$(poetry version | awk '{ print $2 }' | cut -d- -f1) &&
+          poetry version $version-dev$(date +%s)
       - name: Build Wheel
         run: |
           poetry build
