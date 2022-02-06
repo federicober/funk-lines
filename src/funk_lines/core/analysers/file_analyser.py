@@ -23,8 +23,9 @@ class FileAnalyser(base_analyser.BaseAnalyser):
         self._contents: str = self._file_path.read_text("utf-8").strip(
             "\n"
         )  # remove new lines because not relevant
+        super().__init__(self._file_path)
 
-    def analyse(self) -> results.Result:
+    def _analyse(self) -> results.Result:
         """Extracts the results from the analysed object.
 
         Returns:

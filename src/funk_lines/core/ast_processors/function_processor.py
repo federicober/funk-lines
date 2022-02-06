@@ -59,8 +59,10 @@ def get_definitions(
 
     if hasattr(current_node, "body"):
         _body: list[ast.stmt] = current_node.body  # type: ignore[union-attr]
-        return current_node_info + functools.reduce(
-            list.__add__, itertools.starmap(get_definitions, _pairwise(_body, ending=next_node))
+        return functools.reduce(
+            list.__add__,
+            itertools.starmap(get_definitions, _pairwise(_body, ending=next_node)),
+            current_node_info,
         )
 
     return current_node_info
