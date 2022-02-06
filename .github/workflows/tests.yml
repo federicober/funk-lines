@@ -1,6 +1,15 @@
 name: Tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - actions
+  pull_request_target:
+    branches:
+      - main
+      - -develop
 
 jobs:
   tests:
@@ -34,6 +43,10 @@ jobs:
         run: |
           virtualenv venv
           poetry install --dev
+
+      - name: Lint
+        run: |
+          mypy .
 
       - name: Run Pytest
         run: |
